@@ -1,0 +1,91 @@
+package homework3;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class Main {
+    public static void main(String[] args) {
+        //Написать метод, который меняет два элемента массива местами.
+        String[] arr = {"asd", "ds", "ret", "123"};
+        System.out.println(Arrays.toString(arr));
+        swapElements(arr, 1, 3);
+       System.out.println(Arrays.toString(arr));
+
+        Orange orange = new Orange();
+        Apple apple = new Apple();
+        Orange orange2 = new Orange();
+        Box<Orange> orangeBox = new Box<Orange>(new ArrayList<>(Arrays.asList(orange,orange2)) );
+        Box<Apple> appleBox = new Box<Apple>(new ArrayList<>(Arrays.asList(apple)));
+        float weightOrangeBox = orangeBox.getWeight();
+        float weightAppleBox = appleBox.getWeight();
+        boolean compareBoxes = appleBox.compareTo(orangeBox);
+        System.out.println(compareBoxes);
+    }
+
+    private static<T> void swapElements(String[] arr, int index1, int index2) {
+        T temp = (T) arr[index1];
+        arr[index1] = arr[index2];
+        arr[index2] = (String) temp;
+    }
+}
+package homework3;
+
+public class Fruit {
+    private float weight;
+
+    public Fruit(float weight) {
+        this.weight = weight;
+    }
+
+    public float getWeight() {
+        return weight;
+    }
+
+    public void setWeight(float weight) {
+        this.weight = weight;
+    }
+}
+package homework3;
+
+import java.util.ArrayList;
+
+public class Box<T extends Fruit> {
+
+    private ArrayList<T> fruitsList = new ArrayList<>();
+
+    public Box(ArrayList<T> fruitsList) {
+        this.fruitsList = fruitsList;
+    }
+
+    public ArrayList<T> getFruitsList() {
+        return fruitsList;
+    }
+
+    public void setFruitsList(ArrayList<T> fruitsList) {
+        this.fruitsList = fruitsList;
+    }
+    public boolean compareTo(Box<?> box) {
+        return this.getWeight() == box.getWeight();
+    }
+    public float getWeight() {
+    // какое условие проверять я не поняла
+        return (fruitsList.size() * fruitsList.get(0).getWeight());
+    }
+}
+
+package homework3;
+
+public class Orange extends Fruit {
+
+    public Orange() {
+        super(1.5f);
+    }
+}
+package homework3;
+
+public class Apple extends Fruit {
+
+    public Apple() {
+        super(1.0f);
+    }
+}
